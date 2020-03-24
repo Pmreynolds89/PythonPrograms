@@ -36,8 +36,8 @@ def my_url_function(url):
         elem2 = elem2[0].text 
         # Splits string to a list.
         data = elem.split('\n')
-        # Same - (If a lc letter is followed by a space | space followed by a num.)
-        data2 = re.split(r'(?<![a-z])\s|\s(?=\d)', elem2)
+        # Split if a newline is encountered or a space followed by a num, but doesn't include the number.
+        data2 = re.split(r'[\n]+|\s(?=\d)', elem2)
 
     if url == 'https://www.nytimes.com/interactive/2020/us/coronavirus-us-cases.html':
         button = driver.find_element_by_xpath(
@@ -68,22 +68,22 @@ for x in range(len(data[1::2])):
     vOmega += (data[::2][x].ljust(16), '-',   # Index 0 then every 2 indexes.
                data[1::2][x].rjust(8), '\n')  # Index 1 then every 2 indexes.
 
-vOmega += ('\n', 'Country'.ljust(23), 'Confirmed'.ljust(10),  # Adds a tuple to vOmega to describe list below.
+vOmega += ('\n', 'Country'.ljust(34), 'Confirmed'.ljust(10),  # Adds a tuple to vOmega to describe list below.
            'Recovered'.ljust(11), 'Dead'.ljust(1), '\n')
 
 # Organizes text for the data2 variable. Set to run 1/4th the length.
 for x in range(len(data2[1::4])):
-    vOmega += (data2[::4][x].ljust(23), '-',  # Index 0 then every 4 indexes.
+    vOmega += (data2[::4][x].ljust(33), '-',  # Index 0 then every 4 indexes.
                data2[1::4][x].rjust(8),       # Index 1 then every 4 indexes.
                data2[2::4][x].rjust(8),       # Index 2 then every 4 indexes.
                data2[3::4][x].rjust(8), '\n') # Index 3 then every 4 indexes.
     
-vOmega += ('\n', 'State'.ljust(23), 'Confirmed'.center(14),  # Adds a tuple to vOmega to describe list below.
+vOmega += ('\n', 'State'.ljust(33), 'Confirmed'.center(14),  # Adds a tuple to vOmega to describe list below.
             'Dead'.ljust(1), '\n') 
 
 # Organizes text for the data 3 variable. Set to run 1/3rd the length.    
 for x in range(len(data3[1::3])):
-    vOmega += (data3[::3][x].ljust(23), '-',  # Index 0 then every 3 indexes.
+    vOmega += (data3[::3][x].ljust(33), '-',  # Index 0 then every 3 indexes.
                data3[1::3][x].rjust(8),       # Index 1 then every 3 indexes.
                data3[2::3][x].rjust(8), '\n') # Index 2 then every 3 indexes.
     
