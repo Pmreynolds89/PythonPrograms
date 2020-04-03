@@ -1,5 +1,10 @@
 # PythonPrograms
 - CoronaInfo1.2 
-  - Pulls data from multiple sites to organize into one list. Data is saved for later use.  
+  - Gathers data from multiple sites to track the numbers of Corona cases in the world, USA, and states. Number of cases and 
+  - deaths is saved to text.
 - CoronaInfo 1.2Auto 
-  - Changed file structure to save to a specified location instead of where the program was run.
+  - Changes file structure to save to a specified location instead of where the program was run.
+- CoronaInfo2.0
+  - Rewrite. Updated to use a different site. Uses BeautifulSoup instead of Selenium.
+- CoronaInfo2.0Auto
+  - Changes file structure to save to a specified location instead of where the program was run.
