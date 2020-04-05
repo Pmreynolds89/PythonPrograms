@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-# Corona.py 2.0
+# Corona.py 2.0b
 from datetime import datetime
 from bs4 import BeautifulSoup
 from os import path
@@ -12,6 +12,7 @@ output = ''
 #Fetches and saves the current date to 'date'.
 date = datetime.strftime(datetime.now(), '_%Y-%m-%d')
 
+print('Retrieving data...')
 page = requests.get('https://www.worldometers.info/coronavirus/')
 soup = BeautifulSoup(page.content, 'html.parser')
 resultsTotal = soup.find(class_='total_row')
@@ -24,31 +25,41 @@ output += 'Total'.center(31) + '\n' \
 
 resultsWorld = soup.find(id='main_table_countries_today')
 resultsworldFine = resultsWorld.find_all('td')
+countW = resultsWorld.find_all('th')
+countSumW = 0
 
+for x in countW:
+    countSumW += 1
+    
 resultsworldList = [x.text.strip() if x.text.strip() != '' else '0' for x in resultsworldFine]
 
 output += 'World'.center(31) + '\n' \
        + 'Country'.ljust(31) + 'Confirmed'.rjust(10) + 'Dead'.rjust(9) + '\n'
 
-for x in range(len(resultsworldList[1::10])-1):
-    output += resultsworldList[0::10][x].ljust(31) + '-' \
-           + resultsworldList[1::10][x].rjust(9) \
-           + resultsworldList[3::10][x].rjust(9) + '\n'
+for x in range(1, len(resultsworldList[1::countSumW])-1):
+    output += resultsworldList[0::countSumW][x].ljust(31) + '-' \
+           + resultsworldList[1::countSumW][x].rjust(9) \
+           + resultsworldList[3::countSumW][x].rjust(9) + '\n'
 
 page = requests.get('https://www.worldometers.info/coronavirus/country/us/')
 soup = BeautifulSoup(page.content, 'html.parser')
 resultsUS = soup.find(id='usa_table_countries_today')
 resultsusFine = resultsUS.find_all('td')
+countU = resultsUS.find_all('th')
+countSumU = 0
 
+for x in countU:
+    countSumU += 1
+    
 resultsusList = [x.text.strip() if x.text.strip() != '' else '0' for x in resultsusFine]
 
 output += '\n' + 'United States'.center(31) + '\n' \
        + 'State'.ljust(31) + 'Confirmed'.rjust(10) + 'Dead'.rjust(9) + '\n'
 
-for x in range(len(resultsusList[1::7])):
-    output += resultsusList[0::7][x].ljust(31) + '-' \
-           + resultsusList[1::7][x].rjust(9) \
-           + resultsusList[3::7][x].rjust(9) + '\n'
+for x in range(1, len(resultsusList[1::countSumU])):
+    output += resultsusList[0::countSumU][x].ljust(31) + '-' \
+           + resultsusList[1::countSumU][x].rjust(9) \
+           + resultsusList[3::countSumU][x].rjust(9) + '\n'
 
 #Creates folder in current working directory.
 pathDir = os.path.join(os.path.expanduser('~'),'Documents','PythonPrograms', 'VirusData')
