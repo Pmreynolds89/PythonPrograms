@@ -32,8 +32,8 @@ resultsworldList = resultsworldText[resultsworldText.index('USA'):resultsworldTe
 resultstotalList = resultsworldText[resultsworldText.index('World'):resultsworldText.index('All')]
 output += 'Total'.center(31) + '\n' \
        + 'Confirmed'.ljust(31) + '-' + resultstotalList[1].rjust(10) + '\n' \
-       + 'Recovered'.ljust(31) + '-' + resultstotalList[3].rjust(10) + '\n' \
-       + 'Dead'.ljust(31)+ '-' + resultstotalList[5].rjust(10) + '\n\n'
+       + 'Recovered'.ljust(31) + '-' + resultstotalList[5].rjust(10) + '\n' \
+       + 'Dead'.ljust(31)+ '-' + resultstotalList[3].rjust(10) + '\n\n'
 
 
 #Adds headers for the upcoming country totals and adds them to the string variable.
