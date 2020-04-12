@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-# Corona.py 2.0c
+# Corona.py 2.0d
 from datetime import datetime
 from bs4 import BeautifulSoup
 from os import path
@@ -13,17 +13,8 @@ output = ''
 date = datetime.strftime(datetime.now(), '_%Y-%m-%d')
 
 #Soup collects the html data of a site, only stores the class data for world totals, and then splits the data into a list.
-print('Retrieving data...')
 page = requests.get('https://www.worldometers.info/coronavirus/')
 soup = BeautifulSoup(page.content, 'html.parser')
-resultsTotal = soup.find(class_='total_row')
-resultstotalList = resultsTotal.text.strip().split('\n')
-
-#Formats the world totals and adds them to a string variable to save to a .txt file.
-output += 'Total'.center(31) + '\n' \
-       + 'Confirmed'.ljust(31) + '-' + resultstotalList[1].rjust(10) + '\n' \
-       + 'Recovered'.ljust(31) + '-' + resultstotalList[3].rjust(10) + '\n' \
-       + 'Dead'.ljust(31)+ '-' + resultstotalList[5].rjust(10) + '\n\n'
 
 #Soup finds and stores the class data for country totals.
 resultsWorld = soup.find(id='main_table_countries_today')
@@ -35,6 +26,14 @@ countSumW = len(countW)
 #Strips the text and adds zeros where data is missing. Then removes irrelevant data before and after.
 resultsworldText = [x.text.strip() if x.text.strip() != '' else '0' for x in resultsworldFine]
 resultsworldList = resultsworldText[resultsworldText.index('USA'):resultsworldText.index('Total:')]
+
+#Formats the world totals and adds them to a string variable to save to a .txt file.
+resultstotalList = resultsworldText[resultsworldText.index('World'):resultsworldText.index('All')]
+output += 'Total'.center(31) + '\n' \
+       + 'Confirmed'.ljust(31) + '-' + resultstotalList[1].rjust(10) + '\n' \
+       + 'Recovered'.ljust(31) + '-' + resultstotalList[3].rjust(10) + '\n' \
+       + 'Dead'.ljust(31)+ '-' + resultstotalList[5].rjust(10) + '\n\n'
+
 
 #Adds headers for the upcoming country totals and adds them to the string variable.
 output += 'World'.center(31) + '\n' \
@@ -67,7 +66,7 @@ for x in range(1, len(resultsusList[::countSumU])):
     output += resultsusList[0::countSumU][x].ljust(31) + '-' \
            + resultsusList[1::countSumU][x].rjust(9) \
            + resultsusList[3::countSumU][x].rjust(9) + '\n'
-
+		   
 #Creates folder in a specified folder.
 pathDir = os.path.join(os.path.expanduser('~'),'Documents','PythonPrograms', 'VirusData')
 if path.exists(pathDir) == False:
