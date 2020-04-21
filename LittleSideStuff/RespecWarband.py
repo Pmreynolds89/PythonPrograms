@@ -44,25 +44,6 @@ def Respec(name):
     # Combines updated key and value list into a new dictionary.
     charDictEnd = dict(zip(key, value))
 
-    # Burn this part with fire.
-    '''
-    count = 0
-    charOut = ''
-    for x in charDictEnd:
-        if count == 4:
-            charOut += '\n'
-        elif count == 7:
-            charOut += '\n'
-        elif count == 11:
-            charOut += '\n'
-        elif count == 53:
-            charOut += '\n'
-        elif count == 60:
-            charOut += '\n'
-        charOut += (str(x) + ' = ' + str(charDictEnd[x])) + '\n
-        count += 1
-    '''
-
     charOut = ''
     for ind, x in enumerate(charDictEnd):
         if (ind == 4 or ind == 7 or ind == 11 or ind == 53 or ind == 60):
