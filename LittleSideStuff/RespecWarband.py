@@ -32,14 +32,14 @@ def Respec(name):
     # values in value to 0. Attribute points.
     value[4] = charDict['attribute_points'] + sum(value[7:11])
     removeSP = value[9]
-    for x in range(len(value[7:11])):
-        value[x+7] = 0
+    for x in range(7, 11):
+        value[x] = 0
 
     # Sums skills and adds to value[5], then sets all relative values
     # in key to 0. Skill points. Removes Int; int gives 1 SP on selection.
     value[5] = charDict['skill_points'] + sum(value[11:53]) - removeSP
-    for x in range(len(value[11:53])):
-        value[x+11] = 0
+    for x in range(11, 53):
+        value[x] = 0
 
     # Combines updated key and value list into a new dictionary.
     charDictEnd = dict(zip(key, value))
