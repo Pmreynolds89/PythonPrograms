@@ -1,7 +1,6 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-from os import path
 import os
 
 
@@ -12,7 +11,7 @@ def Respec(name):
     fileDir = os.path.join(
         os.path.expanduser('~'), 'Documents',  'Mount&Blade Warband',
                                  'Characters', 'Blank Characters')
-    if path.exists(fileDir) is False:
+    if os.path.exists(fileDir) is False:
         os.makedirs(fileDir)
 
     # Opens the files for read only, stores data to a variable and then closes.
@@ -29,17 +28,16 @@ def Respec(name):
     # Create a dictionary with the 2 lists.
     charDict = dict(zip(key, value))
 
-    # Sums attributes and adds to 'attribute_points', then sets all relative
-    # values in value to 0.
-    att_total = charDict['attribute_points'] + sum(value[7:11])
-    value[4] = att_total
+    # Sums attributes and adds to values[4], then sets all relative
+    # values in value to 0. Attribute points.
+    value[4] = charDict['attribute_points'] + sum(value[7:11])
+    removeSP = value[9]
     for x in range(len(value[7:11])):
         value[x+7] = 0
 
-    # Sums skills and adds to 'skill_points', then sets all relative values
-    # in key to 0.
-    skill_total = charDict['skill_points'] + sum(value[11:53])
-    value[5] = skill_total
+    # Sums skills and adds to value[5], then sets all relative values
+    # in key to 0. Skill points. Removes Int; int gives 1 SP on selection.
+    value[5] = charDict['skill_points'] + sum(value[11:53]) - removeSP
     for x in range(len(value[11:53])):
         value[x+11] = 0
 
@@ -47,6 +45,7 @@ def Respec(name):
     charDictEnd = dict(zip(key, value))
 
     # Burn this part with fire.
+    '''
     count = 0
     charOut = ''
     for x in charDictEnd:
@@ -60,8 +59,15 @@ def Respec(name):
             charOut += '\n'
         elif count == 60:
             charOut += '\n'
-        charOut += (str(x) + ' = ' + str(charDictEnd[x])) + '\n'
+        charOut += (str(x) + ' = ' + str(charDictEnd[x])) + '\n
         count += 1
+    '''
+
+    charOut = ''
+    for ind, x in enumerate(charDictEnd):
+        if (ind == 4 or ind == 7 or ind == 11 or ind == 53 or ind == 60):
+            charOut += '\n'
+        charOut += f'{x} = {str(charDictEnd[x])}\n'
 
     # Saves the text to a file, identical to the input.
     with open(fileSave, 'w') as fileW:
