@@ -8,6 +8,6 @@
 - CoronaInfo2.0Auto
   - ~
 - CoronaInfo2.1
-  - Rewrote parts of code. Changed from .txt files to .csv files to store data.
+  - Rewrote parts of code and it should be Pep 8 compliant. Changed from .txt files to .csv files to store data.
 - CoronaInfo2.1Auto
   - ~
