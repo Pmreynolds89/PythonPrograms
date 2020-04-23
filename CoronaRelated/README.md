@@ -6,4 +6,8 @@
 - CoronaInfo2.0
   - Rewrite. Updated to use a different site. Uses BeautifulSoup instead of Selenium.
 - CoronaInfo2.0Auto
-  - Changes file structure to save to a specified location instead of where the program was run.
+  - ~
+- CoronaInfo2.1
+  - Rewrote parts of code. Changed from .txt files to .csv files to store data.
+- CoronaInfo2.1Auto
+  - ~
