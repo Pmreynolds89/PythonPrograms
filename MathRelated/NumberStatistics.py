@@ -3,17 +3,43 @@
 
 import statistics as stat
 import copy
+from decimal import Decimal, getcontext
+
+def midrange(nums):
+    nums_sort = copy.copy(nums)
+    nums_sort.sort()
+    low, high = nums_sort[0], nums_sort[-1]
+    if type(low) and type(high) is int:
+        return (low + high) // 2
+    if type(low) or type(high) is float:
+        return (low + high) / 2
+
+def nrange(nums):
+    nums_sort = copy.copy(nums)
+    nums_sort.sort()
+    low, high = nums_sort[0], nums_sort[-1]
+    return high - low
+
+def IQR(nums):
+    q1 = stat.median(nums[0:len(nums)//2])
+    q3 = stat.median(nums[len(nums)//2+1:])
+    return float(Decimal(q3) - Decimal(q1))
 
 while True:
-    print("Enter in numbers separated by comma(s): ")
+    print("Enter in numbers separated by spaces: ")
     print("Type 'exit' to exit.")
     nums = input()
 
     if nums == 'exit':
         break
-    nums = nums.split(',')
+    
+    nums = nums.split()
     nums = [x.strip() for x in nums]
-
+    # finds the longest numbers and saves the length to a variable
+    longest_num = len(Decimal(max(nums, key=len)).as_tuple().digits)
+    getcontext().prec = longest_num
+    
+    
     try:
         nums = [float(x) if '.' in x else int(x) for x in nums]
     except Exception as x:
@@ -22,7 +48,7 @@ while True:
 
     while True:
         print("Enter in how to calculate." +
-              "(Mean, Median, Mode, Midrange, Range)")
+              "(Mean, Median, Mode, Midrange, Range, IQR)")
         print("Type 'exit' to exit.")
         calc = input().strip().lower()
 
@@ -38,12 +64,9 @@ while True:
             except:
                 print("No value is found more than once.")
         elif calc == 'midrange':
-            nums_sort = copy.copy(nums)
-            nums_sort.sort()
-            low, high = nums_sort[0], nums_sort[-1]
-            print(low + high / 2)
+            print(midrange(nums))
         elif calc == 'range':
-            nums_sort = copy.copy(nums)
-            nums_sort.sort()
-            low, high = nums_sort[0], nums_sort[-1]
-            print(high - low)
+            print(nrange(nums))
+        elif calc == 'iqr':
+            print(IQR(nums))
+        
