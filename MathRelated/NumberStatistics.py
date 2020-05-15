@@ -21,8 +21,13 @@ def nrange(nums):
     return high - low
 
 def IQR(nums):
-    q1 = stat.median(nums[0:len(nums)//2])
-    q3 = stat.median(nums[len(nums)//2+1:])
+    nums_sort = copy.copy(nums)
+    nums_sort.sort()
+    q1 = stat.median(nums_sort[0:len(nums)//2])
+    if len(nums)%2 == 0:
+        q3 = stat.median(nums_sort[len(nums)//2:])
+    if len(nums)%2 == 1:
+        q3 = stat.median(nums_sort[len(nums)//2+1:])
     return float(Decimal(q3) - Decimal(q1))
 
 while True:
