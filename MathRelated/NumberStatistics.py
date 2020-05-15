@@ -1,3 +1,6 @@
+#!/usr/bin/env python
+# coding: utf-8
+
 import statistics as stat
 import math
 import copy
